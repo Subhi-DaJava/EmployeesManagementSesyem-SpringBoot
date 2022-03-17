@@ -1,5 +1,5 @@
 package net.javaguides.springboot.backed.exception;
-
+// Controller Layer is depends on Service Layer
 //Ressources n'existent pas dans la BDD
 
 import org.springframework.http.HttpStatus;

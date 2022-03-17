@@ -13,7 +13,7 @@ public class Employee {
     private long id;
     //Column annotation
     @Column(name = "first_name",nullable = false)
-    private String firsName;
+    private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
