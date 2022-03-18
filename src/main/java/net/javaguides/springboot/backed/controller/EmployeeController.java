@@ -14,7 +14,7 @@ import java.util.List;
 public class EmployeeController {
     //Injecte dépendance, pas besoin d'annoter @Autowired
 
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
 
     public EmployeeController(EmployeeService employeeService) {
@@ -47,6 +47,14 @@ public class EmployeeController {
     public ResponseEntity<Employee> updateEmployee(@PathVariable("id") long id
                                                   ,@RequestBody Employee employee){
         return new ResponseEntity<>(employeeService.updateEmployee(employee, id), HttpStatus.OK);
+    }
+    //Build Delete Employee REST Api
+    //http://localhost:9088/api/employees/1
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable("id") long id){
+        //delete employee from DB
+        employeeService.deleteEmployee(id);
+        return new ResponseEntity<>("Employee deleted successfully", HttpStatus.OK);
     }
 
 }

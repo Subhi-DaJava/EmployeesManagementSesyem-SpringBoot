@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     //Spring Boot automatically autowired cette classe
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
     public EmployeeServiceImpl(EmployeeRepository employeeRepository){
         super();
         this.employeeRepository = employeeRepository;
@@ -54,5 +54,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         //Second, save existing employee to DB
         employeeRepository.save(existingEmployee);
         return existingEmployee;
+    }
+
+    @Override
+    public void deleteEmployee(long id) {
+        //First, we need to check whether employee with given id exists in DB or not
+        //employeeRepository.findById(id) return Optional<Object>
+        employeeRepository.findById(id).orElseThrow(()->
+                          new ResourceNotFoundException("Employee","Id",id));
+        //Delete from DB
+        employeeRepository.deleteById(id);
     }
 }
